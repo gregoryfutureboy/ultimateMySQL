@@ -15,7 +15,7 @@ SELECT CONCAT_WS(' - ', title, released_year) AS 'summary' FROM books ORDER BY r
 
 SELECT title, author_lname FROM books WHERE author_lname LIKE '%\ %';
 
-SELECT title, released_year, stock_quantity FROM books ORDER BY 3 LIMIT 3;
+SELECT titlSELECT COUNT(title) FROM books WHERE title LIKE '%the%';e, released_year, stock_quantity FROM books ORDER BY 3 LIMIT 3;
 
 SELECT title, author_lname FROM books ORDER BY 2, 1;
 
