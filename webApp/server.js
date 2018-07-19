@@ -1,8 +1,13 @@
 const express = require("express");
+const ejs = require('ejs');
+const bodyParser = require('body-parser');
 const faker = require('faker');
 const mysql = require('mysql');
 
 const app = express();
+
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -21,7 +26,18 @@ app.get('/', (req, res) => {
   db.query(query, (err, results) => {
     if(err) throw err;
     let count = results[0].COUNT;
-    res.send(`We have ${count} users`)
+    res.render('home', {count: count});
+  })
+})
+
+app.post('/register', (req, res) => {
+  let email = {
+    email: req.body.email
+  }
+  let sql = 'INSERT INTO users SET ?';
+  db.query(sql, email, (err, results) => {
+    if(err) throw err;
+    res.send('Thanks for joining!');
   })
 })
 
